@@ -1,0 +1,19 @@
+{% extends 'GET/get_base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+{% block content %}
+	{% csrf_token %}
+	{% crispy form %}
+{% endblock %}
+
+{% block scripting %}
+	<script type="text/javascript">
+	$(document).ready(function () {
+		$('form#invite_form #button-id-cancel').click(function() {
+		    window.location.href = '{% url 'get:contacts_page' %}';
+		    return false;
+		});
+	});
+	</script>
+{% endblock %}

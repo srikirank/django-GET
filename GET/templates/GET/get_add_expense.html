@@ -1,0 +1,26 @@
+{% extends 'GET/get_base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% crispy form %}
+{% endblock %}
+
+{% block scripting %}
+	<script src="{% static 'datepicker/js/bootstrap-datepicker.js' %}"></script>
+	<script type="text/javascript">
+	$(document).ready(function () {
+		$('form#add_expense_form #button-id-cancel').click(function() {
+		    window.location.href = '{% url 'get:expenses_page' %}';
+		    return false;
+		});
+		 $( "#datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1900:2015",
+      format: 'yyyy-mm-dd',
+      // You can put more options here.
+    });
+	});
+	</script>	
+{% endblock %}

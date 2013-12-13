@@ -1,0 +1,13 @@
+{% extends 'GET/get_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<ul>
+	<h2>Contacts:</h2>
+	{% for contact in contact_list %}
+    <li>{{ contact.s_login.first_name }}</li>
+	{% empty %}
+	    <li>No contacts.</li>
+	{% endfor %}
+</ul>
+{% endblock %}

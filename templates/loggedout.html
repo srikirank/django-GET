@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+{% block title %}
+<title>Logged out!</title>
+{% endblock %}
+{% block linkchange %}
+  <ul class="nav navbar-nav navbar-right">
+    <li><a class="active" href="{% url 'login' %}">Login</a></li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+	<!-- {% csrf_token %} -->
+	<h2>Thanks for visiting!</h2>
+	<h3>You have now logged out.</h3>
+{% endblock %}
+

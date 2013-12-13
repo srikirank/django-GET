@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+{% block title %}
+<title>Register</title>
+{% endblock %}
+{% block linkchange %}
+  <ul class="nav navbar-nav navbar-right">
+    <li><a class="active" href="{% url 'login' %}">Login!</a></li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+	<!-- {% csrf_token %} -->
+	<h2 class="form-signin-heading">Sign Up</h2>	
+	{% crispy form %}
+{% endblock %}
+
+{% block scripting %}
+	<script type="text/javascript">
+	$(document).ready(function () {
+		$('form#register_form #button-id-cancel').click(function() {
+		    window.location.href = '{% url 'login' %}';
+		    return false;
+		});
+	});
+	</script>
+{% endblock %}

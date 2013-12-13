@@ -1,0 +1,121 @@
+<!-- 
+
+CITE: We used the framework from the website, since it is just a front end design issue and it is just a framework.
+
+http://getbootstrap.com/examples/offcanvas/# 
+https://github.com/twbs/bootstrap/tree/master/examples/offcanvas
+
+-->
+{% extends 'GET/get_base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+
+{% block styling %}
+    <style type="text/css">
+      #id_amount
+      {
+        text-align: right;
+      }
+    </style>
+{% endblock %}
+
+{% block content %}
+      <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-12 col-sm-9">
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          </p>
+          <div class="jumbotron">
+            <h4>
+            	<ul>
+					<h3>Hello, {{ first_name }}. Interested in what's happening in your groups? </h3>
+				</ul>
+            </h4>
+          </div>
+          <div class="row"> 
+              
+
+            <div class="col-6 col-sm-6 col-lg-4">
+              {% if no_group_own %}
+                  <h3>No one owes me!</h3>
+                {% else %}
+                  <h3>I owe People</h3>
+                  <table border="1">
+                  	<tr>
+                  		<th>Name </th>
+                  		<th>Group </th>
+                  		<th>Amount </th>
+                  	</tr>
+                    {% for contact in group_contacts_iou %}
+                    <tr>
+                      	<td>{{ contact.s_login.first_name }}</td>
+                      	<td>{{ contact.group.group_name }}</td>
+                        <td>{{ contact.iou }}</td>
+                    </tr>
+                    {% endfor %}
+                  </table>
+                {% endif %}
+            </div><!--/span-->
+            <div class="col-6 col-sm-6 col-lg-4">
+              {% if no_own_group %}
+                <h3>I owe no one!  </h3>
+              {% else %}
+                <h3>People owe me  </h3>
+                <table border="1">
+                	<tr>
+                  		<th>Name </th>
+                  		<th>Group </th>
+                  		<th>Amount </th>
+                  	</tr>
+                  {% for contact in group_contacts_uoi %}
+                  <tr>
+                      <td>{{ contact.p_login.first_name }}</td>
+                      <td>{{ contact.group.group_name }}</td>
+                      <td>{{ contact.iou }}</td>
+                  </tr>
+                  {% endfor %}
+                </table>
+              {% endif %}
+            </div><!--/span-->
+
+            <div class="col-6 col-sm-6 col-lg-4">
+              {% if is_involved %}
+                <h3>Expense involved in</h3>                              
+                <table border="1">
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Amount</th>              
+                {% for expense in involved_expense %}
+                </tr>                
+                <tr>
+                    <td>{{ expense.exp_date.year }}-{{ expense.exp_date.month }}-{{ expense.exp_date.day }}</td>
+                      <td>{{ expense.description }}</td>
+                      <td>${{ expense.share }}</td>          
+                </tr>
+                {% endfor %}                
+                </table>                
+              {% else %}
+                    <h3>Spent no money lately!</h3>
+              {% endif %}                            
+            </div><!--/span-->
+          </div><!--/row-->
+        </div><!--/span-->
+
+  	<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+        <div class="list-group">
+        	<h3>Groups you are in: </h3>
+          {% for group in group_list %}
+            <h4>{{ group.group_name }} </h4>
+              <div class="btn-group">
+              <button type="button" class="btn btn-default"><a href="{% url 'get:add_group_expense_page' group.id%}" class="list-group-item">Add expense</a>
+              <a href="{% url 'get:add_group_payment_page' group.id%}" class="list-group-item">Make a payment</a></button>
+            </div>			{% empty %}
+				<li>No groups.</li>
+			{% endfor %}
+          </div>
+        </div><!--/span-->
+      </div><!--/row-->
+{% endblock %}
