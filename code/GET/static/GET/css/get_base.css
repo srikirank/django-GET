@@ -1,8 +1,0 @@
-body {
-  min-height: 2000px;
-  padding-top: 70px;
-}
-
-.navbar-text:nth-last-child(2) {
-	float : right;
-}
