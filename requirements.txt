@@ -3,3 +3,4 @@ South==0.8.3
 django-bootstrap3==2.0.0
 django-crispy-forms==1.4.0
 mysql-python
+sphinx
