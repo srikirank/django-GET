@@ -10,4 +10,5 @@ The Web Application GET requires the following packages:
 5) mysql-python
 
 All the above files are downloadable using pip or easy-install.
-The code has been deployed at silo.cs.indiana.edu:11000/login/
+The code has been deployed at :
+http://silo.cs.indiana.edu:11000/login/
